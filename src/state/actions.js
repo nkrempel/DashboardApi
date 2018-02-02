@@ -38,3 +38,20 @@ export function createUser(payload) {
             })
     }
 }
+export function selectUser(payload) {
+    return {
+        type: 'SELECT_USER',
+        payload
+    }
+}
+export function deleteUser(payload) {
+    return (dispatch, getState, url) => {
+        axios.delete(url + '/users', payload)
+            .then((response) => {
+                console.log(response)
+                console.log("hello from delete")
+              //  dispatch(switchView('list'))
+               // dispatch(fetchUserData())
+            })
+    }
+}

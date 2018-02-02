@@ -16,6 +16,11 @@ const reducer = (state=initialState, action) => {
         return {
             ...state, currentView: action.payload
         }
+
+        case 'SELECT_USER' :
+        return {
+            ...state, selectedUser: action.payload
+        }
         default: 
         return state;
     }
