@@ -3,10 +3,8 @@ import axios from 'axios';
 export const fetchUserData = () => {
     return (dispatch, getState, url) => {
         //dispatch(changePeopleStatus('isLoading'));
-        console.log(url)
         axios.get(url + '/users')
             .then(({ data }) => {
-                console.log(data);
 
                 //});
                 dispatch(loadUserToState(data));
@@ -29,5 +27,14 @@ export function switchView(payload) {
     return {
         type: 'SWITCH_VIEW',
         payload
+    }
+}
+export function createUser(payload) {
+    return (dispatch, getState, url) => {
+        axios.post(url + '/users', payload)
+            .then((response) => {
+                dispatch(switchView('list'))
+                dispatch(fetchUserData())
+            })
     }
 }
