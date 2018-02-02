@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import './ui-toolkit/css/nm-cx/main.css'
 import { connect } from 'react-redux';
+import { fetchUserData, switchView } from './state/actions';
 
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchUserData();
+  }
   render() {
     return (
       <div className="App">
@@ -27,13 +31,14 @@ class App extends Component {
                   <tr key={user.id}>
                   <td>{user.firstName}<span> </span>{user.lastName}</td>
                   <td>{user.email}</td>
-                  <td>{user.createdAt}</td>
+                  <td>{Date(user.createdAt)}</td>
                   <td>Actions</td>
                 </tr>
                 ))
               }  
               </tbody>
             </table>
+            <button id="add" onClick={this.props.switchView}>Add a new User</button>
           </div>
           <div className="medium-2 columns">&nbsp;</div>
 
@@ -51,5 +56,11 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchUserData: () => dispatch(fetchUserData()),
+    switchView: (e) => dispatch(switchView(e.target.id))
+  }
+}
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
