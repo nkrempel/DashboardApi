@@ -103,7 +103,7 @@ class App extends Component {
                             id={user.id}
                             onClick={ (e) => {
                               e.preventDefault;
-                              this.props.deleteUser
+                              this.props.deleteUser(e)
                             }
                           }
                           >

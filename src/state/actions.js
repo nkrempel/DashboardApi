@@ -31,11 +31,16 @@ export function switchView(payload) {
 }
 export function createUser(payload) {
     return (dispatch, getState, url) => {
+        console.log(payload);
         axios.post(url + '/users', payload)
             .then((response) => {
                 dispatch(switchView('list'))
                 dispatch(fetchUserData())
             })
+            .catch(function (error) {
+                console.log(error);
+            })
+
     }
 }
 export function selectUser(payload) {
@@ -46,12 +51,17 @@ export function selectUser(payload) {
 }
 export function deleteUser(payload) {
     return (dispatch, getState, url) => {
-        axios.delete(url + '/users', payload)
+        console.log(url + '/users' )
+        console.log(payload)
+        axios.delete(url + '/users/' + payload)
             .then((response) => {
                 console.log(response)
                 console.log("hello from delete")
-              //  dispatch(switchView('list'))
-               // dispatch(fetchUserData())
+              dispatch(switchView('list'))
+              dispatch(fetchUserData())
+            })
+            .catch(function (error) {
+                console.log(error);
             })
     }
 }
